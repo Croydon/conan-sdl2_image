@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake, ConfigureEnvironment, tools
+from conans import ConanFile, CMake, tools, AutoToolsBuildEnvironment
 from conans.tools import download, unzip
 import shutil
 import os
@@ -7,6 +7,7 @@ import os
 class SDLConan(ConanFile):
     name = "SDL2_image"
     version = "2.0.1"
+    description = "SDL_image is an image file loading library."
     folder = "SDL2_image-%s" % version
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "fast_jpg_load": [True, False]}
@@ -35,11 +36,13 @@ class SDLConan(ConanFile):
             self.build_with_make()
 
     def build_with_make(self):
-        env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
+        env_build = AutoToolsBuildEnvironment(self)
         if self.options.fPIC:
-            env_line = env.command_line.replace('CFLAGS="', 'CFLAGS="-fPIC ')
+            env_build.fpic = True
         else:
-            env_line = env.command_line
+            env_build.fpic = False
+
+        envvars = env_build.vars
 
         custom_vars = 'LIBPNG_LIBS= SDL_LIBS= LIBPNG_CFLAGS='
         sdl2_config_path = os.path.join(self.deps_cpp_info["SDL2"].lib_paths[0], "sdl2-config")
@@ -48,7 +51,6 @@ class SDLConan(ConanFile):
         self.run("chmod a+x %s/configure" % self.folder)
         self.run("chmod a+x %s" % sdl2_config_path)
 
-        self.output.warn(env_line)
         if self.settings.os == "Macos":  # Fix rpath, we want empty rpaths, just pointing to lib file
             old_str = "-install_name \$rpath/"
             new_str = "-install_name "
@@ -62,9 +64,10 @@ class SDLConan(ConanFile):
         new_str = ''
         tools.replace_in_file("%s/configure" % self.folder, old_str, new_str)
 
-        configure_command = 'cd %s && %s SDL2_CONFIG=%s %s ./configure' % (self.folder, env_line, sdl2_config_path, custom_vars)
-        self.output.warn("Configure with: %s" % configure_command)
-        self.run(configure_command)
+        with tools.environment_append(envvars):
+            configure_command = 'cd %s && SDL2_CONFIG=%s %s ./configure' % (self.folder, sdl2_config_path, custom_vars)
+            self.output.warn("Configure with: %s" % configure_command)
+            self.run(configure_command)
 
         old_str = 'DEFS = '
         new_str = 'DEFS = -DLOAD_JPG=1 -DLOAD_PNG=1 ' # Trust conaaaan!
@@ -109,7 +112,7 @@ class SDLConan(ConanFile):
         new_str = '\nCFLAGS =%s %s %s %s\n# Commented by conan: CFLAGS =' % (" ".join(self.deps_cpp_info.cflags), fpic, m32, debug)
         tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
 
-        self.run("cd %s && %s make" % (self.folder, env_line))
+        self.run("cd %s && make" % (self.folder))
 
     def build_cmake(self):
         shutil.copy("CMakeLists.txt", "%s/CMakeLists.txt" % self.folder)
