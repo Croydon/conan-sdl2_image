@@ -1,5 +1,5 @@
 from conans import ConanFile
-from conans import GCC, CMake
+from conans import CMake
 import os
 
 ############### CONFIGURE THESE VALUES ##################
