@@ -5,7 +5,7 @@
 
 [Conan.io](https://conan.io) package for SDL2_image library
 
-The packages generated with this **conanfile** can be found in [conan.io](https://conan.io/source/SDL2_image/2.0.1/lasote/stable).
+The packages generated with this **conanfile** can be found in [conan.io](https://conan.io/source/SDL2_image/2.0.2/lasote/stable).
 
 ## Build packages
 
