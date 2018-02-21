@@ -7,7 +7,7 @@ env:
      - CONAN_UPLOAD: "https://api.bintray.com/conan/conan-community/conan" # ADJUST WITH YOUR REMOTE!
      - CONAN_STABLE_BRANCH_PATTERN: "release/*/bincrafters"
      - CONAN_UPLOAD_ONLY_WHEN_STABLE: 1 # Will only upload when the branch matches "release/*"
-     - CONAN_REMOTES: "https://api.bintray.com/conan/inexorgame/inexor-conan, https://api.bintray.com/conan/conan-community/conan"
+     - CONAN_REMOTES: "https://api.bintray.com/conan/conan-community/conan, https://api.bintray.com/conan/inexorgame/inexor-conan"
 
 linux: &linux
    os: linux
