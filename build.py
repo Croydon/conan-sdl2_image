@@ -1,7 +1,7 @@
 from conan.packager import ConanMultiPackager
 
 if __name__ == "__main__":
-    builder = ConanMultiPackager(remotes="https://api.bintray.com/conan/conan-community/conan, https://api.bintray.com/conan/inexorgame/inexor-conan")
+    builder = ConanMultiPackager(remotes="https://api.bintray.com/conan/bincrafters/public-conan, https://api.bintray.com/conan/inexorgame/inexor-conan")
     builder.add_common_builds(shared_option_name="SDL2_image:shared", pure_c=True)
     x86_64_builds = []
     for build in builder.builds: # Problems installing native GL libs for x86
