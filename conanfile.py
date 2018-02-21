@@ -19,12 +19,12 @@ class SDLConan(ConanFile):
     url = "https://github.com/bincrafters/conan-sdl2_image"
     requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
     license = "MIT"
-
+    filename = "SDL2_image-%s" % self.version
     def config(self):
         del self.settings.compiler.libcxx
 
     def source(self):
-        zip_name = "SDL2_image-%s.tar.gz" % self.version
+        zip_name = "%s.tar.gz" % self.filename
         download("https://www.libsdl.org/projects/SDL_image/release/%s" % zip_name, zip_name)
         unzip(zip_name)
         os.unlink(zip_name)
@@ -47,75 +47,75 @@ class SDLConan(ConanFile):
         custom_vars = 'LIBPNG_LIBS= SDL_LIBS= LIBPNG_CFLAGS='
         sdl2_config_path = os.path.join(self.deps_cpp_info["sdl2"].lib_paths[0], "sdl2-config")
 
-        self.run("cd %s" % self.folder)
-        self.run("chmod a+x %s/configure" % self.folder)
+        self.run("cd %s" % self.filename)
+        self.run("chmod a+x %s/configure" % self.filename)
         self.run("chmod a+x %s" % sdl2_config_path)
 
         if self.settings.os == "Macos":  # Fix rpath, we want empty rpaths, just pointing to lib file
             old_str = "-install_name \$rpath/"
             new_str = "-install_name "
-            tools.replace_in_file("%s/configure" % self.folder, old_str, new_str)
+            tools.replace_in_file("%s/configure" % self.filename, old_str, new_str)
 
         old_str = '#define LOAD_PNG_DYNAMIC "$png_lib"'
         new_str = ''
-        tools.replace_in_file("%s/configure" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/configure" % self.filename, old_str, new_str)
 
         old_str = '#define LOAD_JPG_DYNAMIC "$jpg_lib"'
         new_str = ''
-        tools.replace_in_file("%s/configure" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/configure" % self.filename, old_str, new_str)
 
         with tools.environment_append(envvars):
-            configure_command = 'cd %s && SDL2_CONFIG=%s %s ./configure' % (self.folder, sdl2_config_path, custom_vars)
+            configure_command = 'cd %s && SDL2_CONFIG=%s %s ./configure' % (self.filename, sdl2_config_path, custom_vars)
             self.output.warn("Configure with: %s" % configure_command)
             self.run(configure_command)
 
         old_str = 'DEFS = '
         new_str = 'DEFS = -DLOAD_JPG=1 -DLOAD_PNG=1 ' # Trust conaaaan!
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nLIBS = '
         new_str = '\n# Removed by conan: LIBS2 = '
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nLIBTOOL = '
         new_str = '\nLIBS = %s \nLIBTOOL = ' % " ".join(["-l%s" % lib for lib in self.deps_cpp_info.libs]) # Trust conaaaan!
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nLIBPNG_CFLAGS ='
         new_str = '\n# Commented by conan: LIBPNG_CFLAGS ='
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nLIBPNG_LIBS ='
         new_str = '\n# Commented by conan: LIBPNG_LIBS ='
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nOBJCFLAGS'
         new_str = '\n# Commented by conan: OBJCFLAGS ='
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nSDL_CFLAGS ='
         new_str = '\n# Commented by conan: SDL_CFLAGS ='
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nSDL_LIBS ='
         new_str = '\n# Commented by conan: SDL_LIBS ='
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nCFLAGS ='
         new_str = '\n# Commented by conan: CFLAGS ='
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\n# Commented by conan: CFLAGS ='
         fpic = "-fPIC"  if self.options.fPIC else ""
         m32 = "-m32" if self.settings.arch == "x86" else ""
         debug = "-g" if self.settings.build_type == "Debug" else "-s -DNDEBUG"
         new_str = '\nCFLAGS =%s %s %s %s\n# Commented by conan: CFLAGS =' % (" ".join(self.deps_cpp_info.cflags), fpic, m32, debug)
-        tools.replace_in_file("%s/Makefile" % self.folder, old_str, new_str)
+        tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
-        self.run("cd %s && make" % (self.folder))
+        self.run("cd %s && make" % (self.filename))
 
     def build_cmake(self):
-        shutil.copy("CMakeLists.txt", "%s/CMakeLists.txt" % self.folder)
+        shutil.copy("CMakeLists.txt", "%s/CMakeLists.txt" % self.filename)
         cmake = CMake(self)
 
         args = ["-DLOAD_TIF=0", "-DLOAD_WEBP=0"]  # We do not yet support webp and tif image loading
