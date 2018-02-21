@@ -45,7 +45,7 @@ class SDLConan(ConanFile):
         envvars = env_build.vars
 
         custom_vars = 'LIBPNG_LIBS= SDL_LIBS= LIBPNG_CFLAGS='
-        sdl2_config_path = os.path.join(self.deps_cpp_info["SDL2"].lib_paths[0], "sdl2-config")
+        sdl2_config_path = os.path.join(self.deps_cpp_info["sdl2"].lib_paths[0], "sdl2-config")
 
         self.run("cd %s" % self.folder)
         self.run("chmod a+x %s/configure" % self.folder)
@@ -132,7 +132,7 @@ class SDLConan(ConanFile):
         self.run("cd %s/build && cmake --build . %s" % (self.folder, cmake.build_config))
 
     def package(self):
-        self.copy(pattern="SDL_image.h", dst="include", src="%s" % self.folder, keep_path=False) #TODO: "SDL2" subfolder
+        self.copy(pattern="SDL_image.h", dst="include", src="%s" % self.folder, keep_path=False) #TODO: "sdl2" subfolder
         self.copy(pattern="*.lib", dst="lib", src="%s" % self.folder, keep_path=False)
 
         if not self.options.shared:
