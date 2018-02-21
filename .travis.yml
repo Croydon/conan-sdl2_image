@@ -1,12 +1,12 @@
 env:
    global:
      - CONAN_REFERENCE: "sdl2_image/2.0.2"
-     - CONAN_USERNAME: "lasote" # ADJUST WITH YOUR REFERENCE USERNAME!
-     - CONAN_LOGIN_USERNAME: "lasote" # ADJUST WITH YOUR LOGIN USERNAME!
-     - CONAN_CHANNEL: "testing" # ADJUST WITH YOUR CHANNEL!
-     - CONAN_UPLOAD: "https://api.bintray.com/conan/conan-community/conan" # ADJUST WITH YOUR REMOTE!
+     - CONAN_USERNAME: "bincrafters"
+     - CONAN_LOGIN_USERNAME: "bincrafters"
+     - CONAN_CHANNEL: "testing"
+     - CONAN_UPLOAD: "https://api.bintray.com/conan/conan-community/conan"
      - CONAN_STABLE_BRANCH_PATTERN: "release/*/bincrafters"
-     - CONAN_UPLOAD_ONLY_WHEN_STABLE: 1 # Will only upload when the branch matches "release/*"
+     - CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
      - CONAN_REMOTES: "https://api.bintray.com/conan/bincrafters/public-conan, https://api.bintray.com/conan/inexorgame/inexor-conan"
      - CONAN_BUILD_POLICY: "missing"
 

@@ -46,7 +46,7 @@ class SDLConan(ConanFile):
         envvars = env_build.vars
 
         custom_vars = 'LIBPNG_LIBS= SDL_LIBS= LIBPNG_CFLAGS='
-        sdl2_config_path = os.path.join(self.deps_cpp_info["sdl2"].lib_paths[0], "sdl2-config")
+        sdl2_config_path = os.path.join(self.deps_cpp_info["sdl2"].bin_paths[0], "sdl2-config")
 
         self.run("cd %s" % self.filename)
         self.run("chmod a+x %s/configure" % self.filename)
