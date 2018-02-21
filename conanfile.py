@@ -17,7 +17,7 @@ class SDLConan(ConanFile):
     generators = "cmake"
     exports = ["CMakeLists.txt"]
     url = "https://github.com/lasote/conan-sdl2_image"
-    requires = "SDL2/2.0.5@lasote/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable"  # TODO: We should add libwebp
+    requires = "SDL2/2.0.5@lasote/testing", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable"  # TODO: We should add libwebp
     license = "MIT"
 
     def config(self):
