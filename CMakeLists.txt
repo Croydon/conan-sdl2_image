@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 
 # Project Name and start working in project scope (some things just work until now, some just work after this command)
-project(SDL2_image C)
+project(sdl2_image C)
 
 # Add conan dependencies
 include(../conanbuildinfo.cmake) # TODO This is actually ugly isnt it? Since it only works inside a "require", not using a normal "mkdir build && cd build && conan install .. && cmake .."
@@ -66,9 +66,9 @@ ${IMAGEIO_SOURCE}
 miniz.h
 CACHE INTERNAL "")
 
-add_library(SDL2_image ${SOURCE_FILES})
+add_library(sdl2_image ${SOURCE_FILES})
 
 if(FPIC)
     MESSAGE(STATUS "ENABLED FPIC")
-    SET_TARGET_PROPERTIES(SDL2_image PROPERTIES COMPILE_FLAGS "-fPIC")
+    SET_TARGET_PROPERTIES(sdl2_image PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()

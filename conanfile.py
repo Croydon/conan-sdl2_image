@@ -5,10 +5,10 @@ import os
 
 
 class SDLConan(ConanFile):
-    name = "SDL2_image"
+    name = "sdl2_image"
     version = "2.0.2"
-    description = "SDL_image is an image file loading library."
-    folder = "SDL2_image-%s" % version
+    description = "sdl2_image is an image file loading library."
+    folder = "sdl2_image-%s" % version
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "fast_jpg_load": [True, False]}
     default_options = '''shared=False
@@ -17,7 +17,7 @@ class SDLConan(ConanFile):
     generators = "cmake"
     exports = ["CMakeLists.txt"]
     url = "https://github.com/lasote/conan-sdl2_image"
-    requires = "sdl/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
+    requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
     license = "MIT"
 
     def config(self):
@@ -143,4 +143,4 @@ class SDLConan(ConanFile):
             self.copy(pattern="*.dll", dst="bin", src="%s" % self.folder, keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["SDL2_image"]
+        self.cpp_info.libs = ["sdl2_image"]

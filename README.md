@@ -1,44 +1,64 @@
-[![Build Status](https://travis-ci.org/lasote/conan-sdl2_image.svg)](https://travis-ci.org/lasote/conan-sdl2_image)
+[![Download](https://api.bintray.com/packages/bincrafters/public-conan/sdl2_image%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/sdl2_image%3Abincrafters/_latestVersion)
+[![Build Status](https://travis-ci.org/bincrafters/conan-sdl2_image.svg?branch=testing%2F2.0.2)](https://travis-ci.org/bincrafters/conan-sdl2_image)
 
+[Conan.io](https://conan.io) package recipe for *sdl2_image*.
 
-# conan-sdl2_image
+sdl2_image is an image file loading library.
 
-[Conan.io](https://conan.io) package for SDL2_image library
+The packages generated with this **conanfile** can be found on [Bintray](https://bintray.com/bincrafters/public-conan/sdl2_image%3Abincrafters).
 
-The packages generated with this **conanfile** can be found in [conan.io](https://conan.io/source/SDL2_image/2.0.2/lasote/stable).
-
-## Build packages
-
-Download conan client from [Conan.io](https://conan.io) and run:
-
-    $ python build.py
-
-## Upload packages to server
-
-    $ conan upload SDL2_image/2.0.3@lasote/stable --all
-    
-## Reuse the packages
+## For Users: Use this package
 
 ### Basic setup
 
-    $ conan install SDL2_image/2.0.3@lasote/stable
-    
+    $ conan install sdl2_image/2.0.2@bincrafters/testing
+
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
-    
-    [requires]
-    SDL2_image/2.0.3@lasote/stable
 
-    [options]
-    SDL2_image:shared=true # false
-    
+    [requires]
+    sdl2_image/2.0.2@bincrafters/testing
+
     [generators]
-    txt
     cmake
 
-Complete the installation of requirements for your project running:</small></span>
+Complete the installation of requirements for your project running:
 
-    conan install .
+    $ mkdir build && cd build && conan install ..
 
-Project setup installs the library (and all his dependencies) and generates the files *conanbuildinfo.txt* and *conanbuildinfo.cmake* with all the paths and variables that you need to link with your dependencies.
+Note: It is recommended that you run conan install from a build directory and not the root of the project directory.  This is because conan generates *conanbuildinfo* files specific to a single build configuration which by default comes from an autodetected default profile located in ~/.conan/profiles/default .  If you pass different build configuration options to conan install, it will generate different *conanbuildinfo* files.  Thus, they should not be added to the root of the project, nor committed to git.
+
+## For Packagers: Publish this Package
+
+The example below shows the commands used to publish to bincrafters conan repository. To publish to your own conan respository (for example, after forking this git repository), you will need to change the commands below accordingly.
+
+## Build and package
+
+The following command both runs all the steps of the conan file, and publishes the package to the local system cache.  This includes downloading dependencies from "build_requires" and "requires" , and then running the build() method.
+
+    $ conan create bincrafters/testing
+
+
+### Available Options
+| Option        | Default | Possible Values  |
+| ------------- |:----------------- |:------------:|
+| shared      | False |  [True, False] |
+| fPIC      | True |  [True, False] |
+| fast_jpg_load      | False |  [True, False] |
+
+## Add Remote
+
+    $ conan remote add bincrafters "https://api.bintray.com/conan/bincrafters/public-conan"
+
+## Upload
+
+    $ conan upload sdl2_image/2.0.2@bincrafters/testing --all -r bincrafters
+
+
+## Conan Recipe License
+
+NOTE: The conan recipe license applies only to the files of this recipe, which can be used to build and package sdl2_image.
+It does *not* in any way apply or is related to the actual software being packaged.
+
+[MIT](https://github.com/Croydon/conan-sdl2_image.git/blob/release/2.0.2/LICENSE.md)
