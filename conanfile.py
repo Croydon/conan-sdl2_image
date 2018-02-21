@@ -16,7 +16,7 @@ class SDLConan(ConanFile):
     fast_jpg_load=False'''
     generators = "cmake"
     exports = ["CMakeLists.txt"]
-    url = "https://github.com/lasote/conan-sdl2_image"
+    url = "https://github.com/bincrafters/conan-sdl2_image"
     requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
     license = "MIT"
 
@@ -24,7 +24,7 @@ class SDLConan(ConanFile):
         del self.settings.compiler.libcxx
 
     def source(self):
-        zip_name = "%s.tar.gz" % self.folder
+        zip_name = "SDL2_image-%s.tar.gz" % self.version
         download("https://www.libsdl.org/projects/SDL_image/release/%s" % zip_name, zip_name)
         unzip(zip_name)
         os.unlink(zip_name)
