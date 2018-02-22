@@ -17,7 +17,7 @@ class SDLConan(ConanFile):
     generators = "cmake"
     exports = ["CMakeLists.txt"]
     url = "https://github.com/bincrafters/conan-sdl2_image"
-    requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
+    requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/testing"
     license = "MIT"
     filename = "SDL2_image-%s" % version
 
@@ -65,13 +65,17 @@ class SDLConan(ConanFile):
         new_str = ''
         tools.replace_in_file("%s/configure" % self.filename, old_str, new_str)
 
+        old_str = '#define LOAD_WEBP_DYNAMIC "$webp_lib"'
+        new_str = ''
+        tools.replace_in_file("%s/configure" % self.filename, old_str, new_str)
+
         with tools.environment_append(envvars):
             configure_command = 'cd %s && SDL2_CONFIG=%s %s ./configure' % (self.filename, sdl2_config_path, custom_vars)
             self.output.warn("Configure with: %s" % configure_command)
             self.run(configure_command)
 
         old_str = 'DEFS = '
-        new_str = 'DEFS = -DLOAD_JPG=1 -DLOAD_PNG=1 ' # Trust conaaaan!
+        new_str = 'DEFS = -DLOAD_JPG=1 -DLOAD_PNG=1 -DLOAD_WEBP=1 ' # Trust conaaaan!
         tools.replace_in_file("%s/Makefile" % self.filename, old_str, new_str)
 
         old_str = '\nLIBS = '
