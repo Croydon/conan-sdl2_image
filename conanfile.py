@@ -123,7 +123,7 @@ class SDLConan(ConanFile):
         shutil.copy("CMakeLists.txt", "%s/CMakeLists.txt" % self.filename)
         cmake = CMake(self)
 
-        args = ["-DLOAD_TIF=0", "-DLOAD_WEBP=0"]  # We do not yet support webp and tif image loading
+        args = ["-DLOAD_TIF=0"]  # We do not yet tif image loading
 
         if self.options.fast_jpg_load:
             args += ["-DFAST_JPG_LOAD"]
