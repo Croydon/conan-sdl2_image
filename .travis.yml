@@ -8,7 +8,7 @@ env:
      - CONAN_STABLE_BRANCH_PATTERN: "release/*/bincrafters"
      - CONAN_UPLOAD_ONLY_WHEN_STABLE: 1
      - CONAN_REMOTES: "https://api.bintray.com/conan/bincrafters/public-conan"
-     - CONAN_BUILD_POLICY: "missing"
+     - CONAN_BUILD_POLICY: "outdated"
 
 linux: &linux
    os: linux
