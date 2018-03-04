@@ -20,7 +20,7 @@ class SDLConan(ConanFile):
     requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
     license = "MIT"
     filename = "SDL2_image-%s" % version
-    build_policy = "outdated"
+    build_policy = ""
 
     def config(self):
         del self.settings.compiler.libcxx
