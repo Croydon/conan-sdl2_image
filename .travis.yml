@@ -1,6 +1,6 @@
 env:
    global:
-     - CONAN_REFERENCE: "sdl2_image/2.0.2"
+     - CONAN_REFERENCE: "sdl2_image/2.0.3"
      - CONAN_USERNAME: "bincrafters"
      - CONAN_LOGIN_USERNAME: "bincrafters"
      - CONAN_CHANNEL: "testing"

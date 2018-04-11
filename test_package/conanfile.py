@@ -15,7 +15,7 @@ class DefaultNameConan(ConanFile):
     name = "DefaultName"
     version = "0.1"
     settings = "os", "compiler", "build_type", "arch"
-    requires = "sdl2_image/2.0.2@%s/%s" % (username, channel)
+    requires = "sdl2_image/2.0.3@%s/%s" % (username, channel)
     generators = ["cmake"] # Generates conanbuildinfo.gcc with all deps information
     export = ["face.png"]
 
