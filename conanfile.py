@@ -6,7 +6,7 @@ import os
 
 class SDLConan(ConanFile):
     name = "sdl2_image"
-    version = "2.0.2"
+    version = "2.0.3"
     description = "sdl2_image is an image file loading library."
     folder = "sdl2_image-%s" % version
     settings = "os", "arch", "compiler", "build_type"
@@ -17,7 +17,7 @@ class SDLConan(ConanFile):
     generators = "cmake"
     exports = ["CMakeLists.txt"]
     url = "https://github.com/bincrafters/conan-sdl2_image"
-    requires = "sdl2/2.0.7@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
+    requires = "sdl2/2.0.8@bincrafters/stable", "libpng/1.6.34@bincrafters/stable", "libjpeg-turbo/1.5.2@bincrafters/stable", "libwebp/0.6.1@bincrafters/stable"
     license = "MIT"
     filename = "SDL2_image-%s" % version
     build_policy = ""
