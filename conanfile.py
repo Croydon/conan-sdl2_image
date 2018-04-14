@@ -17,7 +17,7 @@ class SDLConan(ConanFile):
     generators = "cmake"
     exports = ["CMakeLists.txt"]
     url = "https://github.com/lasote/conan-sdl2_image"
-    requires = "sdl2_lowercase/2.0.5@lasote/stable", "libpng/1.6.21@lasote/stable", "libjpeg-turbo/1.5.1@lasote/stable"  # TODO: We should add libwebp
+    requires = "sdl2/2.0.8@bincrafters/testing", "libpng/1.6.21@lasote/stable", "libjpeg-turbo/1.5.1@lasote/stable"  # TODO: We should add libwebp
     license = "MIT"
 
     def config(self):
@@ -45,7 +45,7 @@ class SDLConan(ConanFile):
         envvars = env_build.vars
 
         custom_vars = 'LIBPNG_LIBS= SDL_LIBS= LIBPNG_CFLAGS='
-        sdl2_config_path = os.path.join(self.deps_cpp_info["SDL2"].lib_paths[0], "sdl2-config")
+        sdl2_config_path = os.path.join(self.deps_cpp_info["sdl2"].lib_paths[0], "sdl2-config")
 
         self.run("cd %s" % self.folder)
         self.run("chmod a+x %s/configure" % self.folder)
@@ -143,4 +143,4 @@ class SDLConan(ConanFile):
             self.copy(pattern="*.dll", dst="bin", src="%s" % self.folder, keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["SDL2_image"]
+        self.cpp_info.libs = ["sdl2_image"]
