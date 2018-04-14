@@ -5,7 +5,7 @@ import os
 
 
 class SDLConan(ConanFile):
-    name = "SDL2_image"
+    name = "sdl2_image_lowercase"
     version = "2.0.1"
     description = "SDL_image is an image file loading library."
     folder = "SDL2_image-%s" % version
@@ -17,7 +17,7 @@ class SDLConan(ConanFile):
     generators = "cmake"
     exports = ["CMakeLists.txt"]
     url = "https://github.com/lasote/conan-sdl2_image"
-    requires = "SDL2/2.0.5@lasote/stable", "libpng/1.6.21@lasote/stable", "libjpeg-turbo/1.5.1@lasote/stable"  # TODO: We should add libwebp
+    requires = "sdl2_lowercase/2.0.5@lasote/stable", "libpng/1.6.21@lasote/stable", "libjpeg-turbo/1.5.1@lasote/stable"  # TODO: We should add libwebp
     license = "MIT"
 
     def config(self):
